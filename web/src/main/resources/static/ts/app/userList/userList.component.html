@@ -1,0 +1,70 @@
+<button type="button" class="btn btn-primary btn-red bottom-buffer" (click)="addUser()">
+    <span class="glyphicon glyphicon-user-add"></span>
+    Добавить запись
+</button>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Имя пользователя</th>
+            <th>Логин</th>
+            <th>Пароль</th>
+            <th>Дата рождения</th>
+            <th>Пол</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+    <tr class="vertical" *ngFor="let user of userList">
+        <td>
+            <button type="button"
+                    class="btn btn-default"
+                    [class.hide] = "!user.isDirty"
+                    data-toggle="tooltip"
+                    title="Сохранение изменений"
+                    (click)="updateUser(user)">
+                <span class="glyphicon glyphicon-floppy-save text-danger"></span>
+            </button>
+        </td>
+        <td>{{user.userId}}</td>
+        <td><input class="form-control" [value]="user.displayName" (input)="changeUserValue(user, 'displayName', $event.target.value)"></td>
+        <td><input class="form-control" [value]="user.login" (input)="changeUserValue(user, 'login', $event.target.value)"></td>
+        <td><input class="form-control" [value]="user.password" (input)="changeUserValue(user, 'password', $event.target.value)"></td>
+        <td><input class="form-control" [value]="user.birthDate" (input)="changeUserValue(user, 'birthDate', $event.target.value)" pattern="d{4}-d{2}-d{2}"></td>
+        <td>
+            <select class="form-control"
+                     [(ngModel)]="user.sex"
+                     (change)="changeUserValue(user, 'sex', $event.target.value)">
+                <option *ngFor="let sex of sexList">
+                    {{sex}}
+                </option>
+            </select>
+        </td>
+        <td>
+            <button type="button"
+                    class="btn btn-default"
+                    [class.hide] = "user.isNew"
+                    data-toggle="tooltip"
+                    title="Удалить запись"
+                    (click)="deleteUser(user.userId)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Результат последней выполненной операции</h3>
+    </div>
+    <div class="panel-body">
+            <span [class.text-danger]="resultLastOperation.status == 'error'"
+                  [class.text-success]="resultLastOperation.status == 'success'">
+                {{resultLastOperation.text}}
+            </span>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+.logo {
+    background-image: url("img/logo.png");
+    width: 110px;
+    height: 50px;
+    background-size: contain;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.bottom-buffer {
+    margin-bottom: 20px;
+}
+
+tr.vertical td {
+    vertical-align: middle !important;
+}
+
+.btn-red {
+    background: #ec1d23 !important;
+    border: #ec1d23 !important;
+}
+
+.text-red {
+    color: #ec1d23;
+}
